@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -22,7 +22,7 @@
             position: relative;
         }
 
-        /* Marca de agua corregida (Más grande y visible) */
+        /* Marca de agua (Logo de fondo) */
         body::before {
             content: "";
             position: fixed;
@@ -33,12 +33,12 @@
             background-image: url('logo.png'); 
             background-repeat: no-repeat;
             background-position: center;
-            background-size: 80%; /* LOGO MÁS GRANDE */
-            opacity: 0.15; /* Un toque más de visibilidad */
+            background-size: 80%; 
+            opacity: 0.15;
             z-index: -1; 
         }
 
-        /* BARRA DE NAVEGACIÓN */
+        /* BARRA DE NAVEGACIÓN MEJORADA */
         .navbar {
             background-color: #d32f2f;
             padding: 15px 5%;
@@ -146,11 +146,11 @@
             margin: 15px auto 25px;
         }
 
+        /* AJUSTES RESPONSIVOS PARA IMÁGENES Y TEXTO */
         .description-box {
             display: flex;
             align-items: center;
             gap: 30px;
-            text-align: left;
         }
 
         .side-image {
@@ -251,10 +251,53 @@
         .ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #bc1888); }
         .btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
 
+        /* --- SECCIÓN MÓVIL CORREGIDA --- */
         @media (max-width: 768px) {
-            .description-box, .director-section { flex-direction: column; text-align: center; }
-            .side-image, .side-text, .quote-style { width: 100%; border: none; padding: 0; }
-            .nav-links { display: none; }
+            .navbar {
+                flex-direction: column;
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                display: flex; 
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 15px;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+                padding: 5px;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                background-color: rgba(255,255,255,0.1);
+                min-width: 100%;
+            }
+
+            .dropdown-content a {
+                color: white !important;
+                text-align: center;
+                border-bottom: 1px solid rgba(255,255,255,0.2);
+            }
+
+            .description-box, .director-section { 
+                flex-direction: column; 
+                text-align: center; 
+            }
+
+            .side-image, .side-text, .quote-style { 
+                width: 100%; 
+                border: none; 
+                padding: 0; 
+            }
+
+            .director-photo {
+                margin: 0 auto 15px;
+            }
         }
     </style>
 </head>
@@ -268,8 +311,7 @@
             <div class="dropdown">
                 <a href="#">Institución ▾</a>
                 <div class="dropdown-content">
-                    <a href="#">Mapas</a>
-                    <a href="profesores.html">Profesores</a>
+                    <a href="noticias.html">Noticias</a>
                 </div>
             </div>
             <a href="#">Estudios</a>
@@ -281,7 +323,7 @@
     <div class="main-content">
         
         <div class="card text-center">
-            <h1>U.E. "Pedro José Carrillo Márquez"</h1>
+            <h1>Liceo "Pedro José Carrillo Márquez"</h1>
             <p style="font-style: italic; color: #777; font-size: 1.3rem;">"Estudiar es Triunfar"</p>
             <div class="divider"></div>
             <p style="font-size: 1.2rem;">Bienvenido al portal informativo de nuestra institución en Trujillo.</p>
@@ -291,7 +333,11 @@
             <div class="description-box">
                 <img src="foto_liceo.jpg" alt="Fachada" class="side-image">
                 <p class="side-text">
-                    El Liceo "Pedro José Carrillo Márquez" es una institución emblemática ubicada en el corazón de Trujillo, Venezuela, dedicada a la formación de jóvenes bajo la premisa de la excelencia académica y el compromiso social.
+                    El <strong>Liceo "Pedro José Carrillo Márquez"</strong> es una institución emblemática ubicada en el 
+
+corazón de Trujillo, Venezuela, dedicada a la formación de jóvenes bajo la premisa de la excelencia académica y el 
+
+compromiso social.
                 </p>
             </div>
         </div>
@@ -301,7 +347,9 @@
             <div class="director-section">
                 <img src="director.jpg" alt="Director/a" class="director-photo">
                 <div class="quote-style">
-                    "Nuestra misión es brindar una educación que transforme vidas, donde cada estudiante encuentre las herramientas para ser un ciudadano ejemplar y profesional exitoso."
+                    "Nuestra misión es brindar una educación que transforme vidas, donde cada estudiante encuentre las 
+
+herramientas para ser un ciudadano ejemplar y profesional exitoso."
                     <br><br>
                     <strong>- Equipo Directivo</strong>
                 </div>
@@ -309,7 +357,9 @@
         </div>
 
         <div class="inspiration-card">
-            <p style="font-size: 1.5rem; font-style: italic;">"La educación no cambia el mundo, cambia a las personas que van a cambiar el mundo."</p>
+            <p style="font-size: 1.5rem; font-style: italic;">"La educación no cambia el mundo, cambia a las personas 
+
+que van a cambiar el mundo."</p>
             <p style="margin-top: 10px; font-weight: bold; color: #ffeb3b;">- Paulo Freire</p>
         </div>
 
@@ -323,7 +373,11 @@
             <h2 class="text-center">Ubicación Exacta</h2>
             <div class="map-container">
                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3936.568430752445!2d-70.435745!3d9.375836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcKwMjInMzMuMCJOIDcwwrAyNicwOC43Ilc!5e0!3m2!1ses!2sve!4v1700000000000" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1968.123!2d-70.435!3d9.366!2m3!
+
+1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcKwMjInMDUuNiJOIDcwwrAyNicwOC4wIlc!5e0!
+
+3m2!1ses!2sve!4v1645450000000!5m2!1ses!2sve" 
                     allowfullscreen="" loading="lazy">
                 </iframe>
             </div>
@@ -335,11 +389,17 @@
         <div style="max-width: 1000px; margin: 0 auto;">
             <h3>Contacto y Redes Oficiales</h3>
             <div class="social-container">
-                <a href="https://www.facebook.com/p/Liceo-Pedro-Jose-Carrillo-Marquez-100058154843528/" target="_blank" class="btn fb">Facebook</a>
-                <a href="https://www.instagram.com/explore/locations/876631965784227/liceo-pedro-jose-carrillo-marquez/?hl=es" target="_blank" class="btn ig">Instagram</a>
+                <a href="https://www.facebook.com/p/Liceo-Pedro-Jose-Carrillo-Marquez-100058154843528/" 
+
+target="_blank" class="btn fb">Facebook</a>
+                <a href="https://www.instagram.com/explore/locations/876631965784227/liceo-pedro-jose-carrillo-
+
+marquez/?hl=es" target="_blank" class="btn ig">Instagram</a>
             </div>
         </div>
-        <div style="margin-top: 20px; font-size: 0.85rem; opacity: 0.8; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;">
+        <div style="margin-top: 20px; font-size: 0.85rem; opacity: 0.8; border-top: 1px solid rgba(255,255,255,0.2); 
+
+padding-top: 15px;">
             © 2026 Liceo "Pedro José Carrillo Márquez" - Trujillo.
         </div>
     </footer>
