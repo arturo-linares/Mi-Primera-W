@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -38,7 +38,7 @@
             z-index: -1; 
         }
 
-        /* BARRA DE NAVEGACIÓN */
+        /* BARRA DE NAVEGACIÓN ACTUALIZADA PARA MÓVILES */
         .navbar {
             background-color: #d32f2f;
             padding: 15px 5%;
@@ -103,6 +103,10 @@
             display: block;
         }
 
+        .nav-links a:hover {
+            color: #ffeb3b;
+        }
+
         /* CONTENIDO DE NOTICIAS */
         .main-content {
             flex: 1;
@@ -110,10 +114,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 40px; /* Más espacio entre noticias */
+            gap: 40px;
         }
 
-        /* Tarjeta para el título "Noticias" */
         .title-card {
             background-color: rgba(255, 255, 255, 0.95);
             width: 100%;
@@ -180,11 +183,6 @@
             margin: 20px 0 10px 0;
         }
 
-        .news-text ul {
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-
         /* FOOTER */
         footer {
             background-color: #b71c1c; 
@@ -195,10 +193,47 @@
             margin-top: 40px;
         }
 
+        /* --- SECCIÓN MÓVIL ADAPTABLE --- */
         @media (max-width: 850px) {
-            .news-body { flex-direction: column; }
-            .news-image, .news-text { width: 100%; }
-            .nav-links { display: none; }
+            .navbar {
+                flex-direction: column;
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                display: flex; 
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 15px;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+                padding: 5px;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                background-color: rgba(255,255,255,0.1);
+                min-width: 100%;
+            }
+
+            .dropdown-content a {
+                color: white !important;
+                text-align: center;
+                border-bottom: 1px solid rgba(255,255,255,0.2);
+            }
+
+            .news-body {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .news-image, .news-text {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -236,13 +271,11 @@
                 <img src="imagen_astronomia_noticia_1.png" alt="Olimpiadas de Astronomía" class="news-image">
                 
                 <div class="news-text">
-                    <p><strong>TRUJILLO, ESTADO TRUJILLO</strong> – En una jornada marcada por el entusiasmo científico y la curiosidad intelectual, el Liceo "Pedro José Carrillo Márquez" se convirtió oficialmente en el epicentro del municipio de la astronomía al fungir como sede de la primera fase de las Olimpiadas Venezolanas de Astronomía 2026 en el municipio Trujillo.</p>
-
+                    <p><strong>TRUJILLO, ESTADO TRUJILLO</strong> – En una jornada marcada por el entusiasmo científico, el Liceo "Pedro José Carrillo Márquez" fungió como sede de la primera fase de las Olimpiadas Venezolanas de Astronomía 2026.</p>
                     <h3>Un encuentro con el cosmos</h3>
-                    <p>Desde tempranas horas de la mañana, las aulas del histórico plantel trujillano recibieron a jóvenes talentos que se enfrentaron a los desafíos teóricos de esta etapa inicial organizada por el Cidata.</p>
-
+                    <p>Desde tempranas horas, jóvenes talentos se enfrentaron a los desafíos teóricos de esta etapa inicial organizada por el Cidata para fomentar la pasión por las ciencias del espacio.</p>
                     <h3>Hacia las próximas fronteras</h3>
-                    <p>Se espera que los resultados se den a conocer en las próximas semanas, llevando consigo el orgullo de todo el pueblo trujillano hacia la competencia nacional.</p>
+                    <p>Se espera que los resultados se den a conocer en las próximas semanas, llevando el orgullo trujillano a la competencia nacional.</p>
                 </div>
             </div>
         </div>
@@ -255,17 +288,11 @@
                 <img src="imagen_pagina_noticia_1.png" alt="Lanzamiento Página Web" class="news-image">
                 
                 <div class="news-text">
-                    <p><strong>TRUJILLO, ESTADO TRUJILLO</strong> – En un paso decisivo hacia la modernización educativa, el Liceo "Pedro José Carrillo Márquez" ha anunciado oficialmente el lanzamiento de su portal web institucional, eliminando las barreras físicas para conectar a la institución con el mundo digital.</p>
-
+                    <p><strong>TRUJILLO, ESTADO TRUJILLO</strong> – El Liceo "Pedro José Carrillo Márquez" ha anunciado oficialmente el lanzamiento de su portal web institucional, conectando a la institución con el mundo digital.</p>
                     <h3>Un salto hacia la eficiencia</h3>
-                    <ul>
-                        <li><strong>Comunicación Directa:</strong> Acceso a cronogramas y circulares.</li>
-                        <li><strong>Vitrina del Talento:</strong> Espacio para logros académicos.</li>
-                        <li><strong>Recurso Pedagógico:</strong> Material didáctico en línea.</li>
-                    </ul>
-
+                    <p>La plataforma permitirá comunicación directa, vitrina del talento y recursos pedagógicos para toda la comunidad.</p>
                     <h3>En fase de desarrollo</h3>
-                    <p>Aunque el proyecto se encuentra en una etapa temprana, se estima que el sitio esté completamente operativo para finales de julio. "Es un proyecto ambicioso que busca centralizar toda nuestra vida académica en un solo clic", explico el creador,  YO! Arturo!!!!.</p>
+                    <p>Aunque el proyecto se encuentra en una etapa temprana, se estima que el sitio esté completamente operativo para finales de julio. "Es un proyecto ambicioso que busca centralizar toda nuestra vida académica en un solo clic", explico el creador, YO! Arturo!!!!.</p>
                 </div>
             </div>
         </div>
