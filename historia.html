@@ -1,0 +1,304 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biografía e Historia - Liceo Pedro José Carrillo Márquez</title>
+    <style>
+        /* BASE Y FONDO CON LOGO GRANDE TRANSPARENTE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #ffebee; 
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Marca de agua (Logo de fondo) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('logo.png'); 
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 80%; 
+            opacity: 0.15;
+            z-index: -1; 
+        }
+
+        /* BARRA DE NAVEGACIÓN MEJORADA COMPLETA */
+        .navbar {
+            background-color: #d32f2f;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 5px solid #ffeb3b;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-box img {
+            height: 75px;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a, .dropdown > a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+
+        /* MENÚ DESPLEGABLE (DROPDOWN COMPLETO) */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            padding: 10px 0;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1001;
+            border-radius: 8px;
+            top: 45px; 
+            left: 0;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: #333 !important;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            color: #d32f2f !important;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .nav-links a:hover, .dropdown:hover > a {
+            color: #ffeb3b;
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .main-content {
+            flex: 1;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.95); 
+            width: 100%;
+            max-width: 950px;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .text-center { text-align: center; }
+
+        h1, h2 {
+            color: #d32f2f;
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            height: 3px;
+            width: 200px;
+            background-color: #ffeb3b;
+            margin: 15px auto 25px;
+        }
+
+        /* CONFIGURACIÓN DEL TEXTO HISTÓRICO */
+        .history-section {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .history-section p {
+            margin-bottom: 20px;
+        }
+
+        .history-section h3 {
+            color: #b71c1c;
+            margin: 25px 0 10px 0;
+            border-left: 4px solid #ffeb3b;
+            padding-left: 10px;
+        }
+
+        .highlight-box {
+            background-color: #fff9c4;
+            border-left: 6px solid #ffeb3b;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+            font-style: italic;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #b71c1c; 
+            color: white;
+            padding: 30px 5% 15px;
+            text-align: center;
+            border-top: 5px solid #ffeb3b;
+            margin-top: 40px;
+        }
+
+        /* --- SECCIÓN MÓVIL ADAPTABLE --- */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                display: flex; 
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 15px;
+            }
+
+            .nav-links a, .dropdown > a {
+                font-size: 0.9rem;
+                padding: 5px;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                background-color: rgba(255,255,255,0.1);
+                min-width: 100%;
+            }
+
+            .dropdown-content a {
+                color: white !important;
+                text-align: center;
+                border-bottom: 1px solid rgba(255,255,255,0.2);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo-box">
+            <img src="logo.png" alt="Escudo">
+        </div>
+        <nav class="nav-links">
+            <div class="dropdown">
+                <a href="#">Institución ▾</a>
+                <div class="dropdown-content">
+                    <a href="index.html">Inicio</a>
+                    <a href="noticias.html">Noticias</a>
+                    <a href="historia.html">Historia</a>
+                    <a href="inscripciones.html">Inscripciones</a>
+                    <a href="meritos.html">Méritos</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        
+        <div class="card text-center">
+            <h1>Nuestro Epónimo e Institución</h1>
+            <p style="font-style: italic; color: #777; font-size: 1.2rem;">Conociendo la historia de Pedro José Carrillo Márquez y nuestra evolución educativa</p>
+            <div class="divider"></div>
+        </div>
+
+        <!-- ARTÍCULO 1: BIOGRAFÍA -->
+        <div class="card history-section">
+            <h2>Biografía de Don Pedro José Carrillo Márquez</h2>
+            <div style="height: 2px; width: 100px; background-color: #ffeb3b; margin: 10px 0 20px 0;"></div>
+            
+            <p>Para comprender la identidad y los valores que guían a nuestra institution, es fundamental mirar hacia el pasado y conocer la vida del hombre cuyo nombre portamos con orgullo: <strong>Pedro José Carrillo Márquez</strong>. Su legado no es solo un adorno en nuestra fachada, sino un testimonio viviente de civismo, cultura y resistencia.</p>
+
+            <h3>Orígenes y Formación</h3>
+            <p>Nacido en la noble e histórica ciudad de Trujillo el 11 de junio de 1884, Pedro José creció bajo la notable influencia de su padre, Don Juan Bautista Carrillo Guerra. Su hogar fue una cuna de alta sensibilidad social y exquisitez cultural. Don Juan Bautista no era cualquier ciudadano; fue el fundador de "El Trujillano" —el primer periódico impreso de nuestra región—, el visionario que trajo la primera imprenta a Trujillo, primer presidente de la Junta Superior de Instrucción Pública y poseedor de la biblioteca más selecta del entorno. Formándose a la sombra de semejante ejemplo, Pedro José desarrolló desde muy joven una sólida ilustración académica y un profundo amor por las letras.</p>
+            
+            <p>Su formación académica lo llevó a cruzar fronteras, cursando estudios en el prestigioso Colegio de Santo Tomás en la isla de Curazao. Tras concluir su preparación, su vida transcurrió de manera íntegra, pacífica y constante en su amada Trujillo natal, siempre dedicado al crecimiento de su comunidad.</p>
+
+            <h3>Tiempos de Firmeza y Sacrificio</h3>
+            <p>La historia también puso a prueba su temple ciudadano. A mediados de 1913, tras ser relevado en la Superintendencia de Instrucción por el General José Luis Troconis, los tiempos convulsos de la política nacional lo alcanzaron. El 26 de abril de 1914 fue privado de su libertad en la cárcel de Trujillo, para posteriormente ser trasladado, el 12 de mayo, al temido e histórico Castillo de San Carlos en el estado Zulia.</p>
+
+            <div class="highlight-box">
+                "En los muros del Castillo de San Carlos permaneció confinado por espacio de año y medio. Compartió el cautiverio, el martirio y la ruina económica junto a destacadas personalidades de la época como Abigail Colmenares, Albano Mibeli, Godofredo Massini y los hermanos Abel y Eduardo Santos; hombres que pagaron un precio muy alto por mantener intacto su inquebrantable amor a Venezuela."
+            </div>
+
+            <h3>Vocación Pública y Despedida</h3>
+            <p>Su rectitud y capacidades no pasaron desapercibidas. En 1935, su camino tomó un rumbo de alta responsabilidad cuando el Presidente de la República, el General Eleazar López Contreras, lo convocó formalmente para colaborar de forma directa en su gestión gubernamental de transición democrática. Una vez concluido el período presidencial, Pedro José regresó con total naturalidad a refugiarse en sus raíces trujillanas.</p>
+            
+            <p>Lamentablemente, sus años finales se vieron ensombrecidos por una antigua dolencia física. En busca de un alivio definitivo, se vio obligado a trasladarse a la ciudad de Caracas para someterse a una intervención quirúrgica compleja. Debido a inesperadas complicaciones postoperatorias, cerró sus ojos de manera definitiva el 4 de mayo de 1943.</p>
+
+            <p>Hoy, nuestro liceo rinde tributo a este ilustre trujillano, buscando que cada estudiante que pase por nuestras aulas emule su sed de conocimientos, su refinada cultura y su inquebrantable compromiso ético con la sociedad.</p>
+        </div>
+
+        <!-- ARTÍCULO 2: HISTORIA DE LA INSTITUCIÓN -->
+        <div class="card history-section">
+            <h2>Reseña Histórica de la Institución</h2>
+            <div style="height: 2px; width: 100px; background-color: #ffeb3b; margin: 10px 0 20px 0;"></div>
+            
+            <p>La <strong>Unidad Educativa Pedro Carrillo M.</strong> nace para dar respuesta a la imperiosa necesidad educativa de la comunidad trujillana. Su evolución a lo largo de las décadas refleja el esfuerzo conjunto de docentes, representantes y la comunidad en general por consolidar un espacio de formación integral.</p>
+
+            <h3>Fundación y Primeros Pasos (1975)</h3>
+            <p>En el año 1975, el Ministerio de Educación crea el Ciclo Básico Común a nivel nacional, lo que dio lugar a la fundación del <strong>Ciclo Básico Común "Santa Rosa"</strong> en nuestra localidad. Esta institución recién creada inicia formalmente sus actividades docentes y administrativas el <strong>19 de febrero de 1975</strong>, fecha en la cual se celebra con orgullo su aniversario institucional.</p>
+            
+            <h3>Transición y Cambio de Nombre (1979)</h3>
+            <p>Para el año escolar 1979-1980, la institución es trasladada a las instalaciones del Liceo Cristóbal Mendoza, operando en el turno de la tarde. Es en este período de transición cuando adopta el nombre de <strong>Ciclo Básico "Pedro J. Carrillo M."</strong>, rindiendo un merecido homenaje al prócer e ilustre intelectual trujillano.</p>
+
+            <h3>La Sede Propia en la Urb. La Vega (1992)</h3>
+            <p>Gracias a la incansable lucha y constancia de toda la comunidad escolar, se logró obtener un terreno y presupuesto para una sede propia. El <strong>16 de diciembre de 1992</strong> se inauguran oficialmente las nuevas instalaciones de la institución, ubicadas en la Urbanización La Vega, perteneciente a la Parroquia Matriz del Municipio Trujillo. A partir de este hito, el plantel pasa a denominarse <strong>Escuela Básica "Pedro J. Carrillo M."</strong>.</p>
+
+            <h3>Consolidación como Unidad Educativa (2006)</h3>
+            <p>El crecimiento académico continuó y en el año 2006, con la creación y apertura del cuarto y quinto año de educación media, la institución recibe la denominación oficial con la cual se le conoce actualmente: <strong>Unidad Educativa "Pedro Carrillo M."</strong>. Su trayectoria y epónimo obedecen firmemente a la brillante e intachable hoja de vida de Don Pedro José Carrillo Márquez, inspirando diariamente a las nuevas generaciones de Trujillo.</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <div style="margin-top: 10px; font-size: 0.85rem; opacity: 0.8;">
+            © 2026 Liceo "Pedro José Carrillo Márquez" - Trujillo.
+        </div>
+    </footer>
+</body>
+</html>

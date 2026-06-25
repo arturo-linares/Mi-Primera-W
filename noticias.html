@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -38,7 +38,7 @@
             z-index: -1; 
         }
 
-        /* BARRA DE NAVEGACIÓN ACTUALIZADA PARA MÓVILES */
+        /* BARRA DE NAVEGACIÓN MEJORADA COMPLETA */
         .navbar {
             background-color: #d32f2f;
             padding: 15px 5%;
@@ -63,7 +63,7 @@
             align-items: center;
         }
 
-        .nav-links a {
+        .nav-links a, .dropdown > a {
             color: white;
             text-decoration: none;
             font-weight: bold;
@@ -71,7 +71,7 @@
             transition: 0.3s;
         }
 
-        /* MENÚ DESPLEGABLE */
+        /* MENÚ DESPLEGABLE (DROPDOWN COMPLETO) */
         .dropdown {
             position: relative;
             display: inline-block;
@@ -82,7 +82,7 @@
             display: none;
             position: absolute;
             background-color: white;
-            min-width: 160px;
+            min-width: 200px;
             box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
             z-index: 1001;
             border-radius: 8px;
@@ -97,13 +97,19 @@
             text-decoration: none;
             display: block;
             font-size: 0.95rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            color: #d32f2f !important;
         }
 
         .dropdown:hover .dropdown-content {
             display: block;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover, .dropdown:hover > a {
             color: #ffeb3b;
         }
 
@@ -178,6 +184,11 @@
             width: 55%;
         }
 
+        /* Clase auxiliar para noticias sin imagen */
+        .full-width {
+            width: 100% !important;
+        }
+
         .news-text h3 {
             color: #d32f2f;
             margin: 20px 0 10px 0;
@@ -208,7 +219,7 @@
                 margin-top: 15px;
             }
 
-            .nav-links a {
+            .nav-links a, .dropdown > a {
                 font-size: 0.9rem;
                 padding: 5px;
             }
@@ -245,15 +256,15 @@
         </div>
         <nav class="nav-links">
             <div class="dropdown">
-                <a href="index.html">Institución ▾</a>
+                <a href="#">Institución ▾</a>
                 <div class="dropdown-content">
                     <a href="index.html">Inicio</a>
-                    <a href="#">Noticias</a>
+                    <a href="noticias.html">Noticias</a>
+                    <a href="historia.html">Historia</a>
+                    <a href="inscripciones.html">Inscripciones</a>
+                    <a href="meritos.html">Méritos</a>
                 </div>
             </div>
-            <a href="#">Estudios</a>
-            <a href="#">Investigación</a>
-            <a href="#">Cultura y Extensión</a>
         </nav>
     </header>
 
@@ -261,6 +272,36 @@
         
         <div class="title-card">
             <h1>Noticias</h1>
+        </div>
+
+        <div class="news-card">
+            <h2 class="news-title">¡Llegó el momento! Presentación final de los Proyectos de Biología</h2>
+            <span class="news-date">Publicado el: 24/06/2026</span>
+            
+            <div class="news-body">
+                <div class="news-text full-width">
+                    <p>¡Muchachos, llegó el momento! Esta semana nos toca enfrentar la batalla final de Biología y no podemos fallar. Hemos trabajado muchísimo para llegar hasta aquí, y estoy completamente seguro de que tanto nuestra sección como la sección B lo vamos a lograr en grande.</p>
+                    <h3>Coordinación de las ponencias</h3>
+                    <p>Este jueves y viernes se librará nuestra ponencia definitiva. Vamos a darlo todo frente al jurado para demostrar el esfuerzo de todos estos meses. ¡Mucho éxito a cada uno de los equipos, a ganar!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="news-card">
+            <h2 class="news-title">Rumbo a la Final Nacional: Destacada participación de nuestro liceo en la segunda fase de las Olimpiadas de Astronomía en Valera</h2>
+            <span class="news-date">Publicado el: 10/04/2026</span>
+            
+            <div class="news-body">
+                <img src="astronomia_2.jpg" alt="Segunda Fase Olimpiadas de Astronomía" class="news-image">
+                
+                <div class="news-text">
+                    <p><strong>VALERA, ESTADO TRUJILLO</strong> – El pasado 10 de abril se celebró con total éxito la exigente segunda fase regional de las Olimpiadas Venezolanas de Astronomía 2026. En esta oportunidad, la cita científica abandonó nuestras instalaciones para concentrar a los mejores talentos del estado en la ciudad de Valera.</p>
+                    <h3>El filtro hacia la élite científica</h3>
+                    <p>Esta etapa consistió en una rigurosa evaluación de conocimientos teóricos avanzados diseñada por el Cidata. El objetivo principal de este encuentro fue seleccionar minuciosamente a las mentes más brillantes de la región que obtendrían el pase directo a la esperada tercera fase: la Competencia Nacional.</p>
+                    <h3>¡Tenemos representación en la Gran Final!</h3>
+                    <p>Nuestra delegación institucional asistió con un orgullo enorme y compitió firmemente hombro a hombro contra los planteles más fuertes del estado. Tras publicarse las calificaciones oficiales, nos llena de inmensa alegría anunciar que **una estudiante de nuestro liceo logró clasificar con éxito a la Fase Nacional, esta estudiante se llama Naryennis Vasquez de quinto año seccion "B"**, portando el estandarte del Pedro José Carrillo Márquez entre la élite astronómica juvenil del país.</p>
+                </div>
+            </div>
         </div>
 
         <div class="news-card">

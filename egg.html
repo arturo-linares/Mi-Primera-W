@@ -1,0 +1,486 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Trujillo Arcade - 8-Bit Easter Egg</title>
+    <style>
+        /* FUENTE PIXELADA INTEGRADA */
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        body {
+            background-color: #050510;
+            color: #00ff66;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 10px;
+            overflow-x: hidden;
+        }
+
+        /* CONTENEDOR ESTILO PANTALLA CRT */
+        .arcade-container {
+            background-color: #111125;
+            border: 6px solid #d32f2f;
+            border-radius: 4px;
+            box-shadow: 0 0 30px rgba(211, 47, 47, 0.4), inset 0 0 20px rgba(0,0,0,1);
+            width: 100%;
+            max-width: 850px;
+            padding: 25px;
+            position: relative;
+        }
+
+        /* MARQUESINA SUPERIOR */
+        .arcade-header {
+            border-bottom: 4px dashed #ffeb3b;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .pixel-logo {
+            height: 50px;
+            border: 2px solid #fff;
+            background-color: #fff;
+        }
+
+        /* CONTENEDOR DE ESTRELLAS */
+        .star-badge-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+
+        .star-icon {
+            display: inline-block;
+            font-size: 1.4rem;
+            animation: pulse 1s infinite alternate;
+        }
+        
+        .star-yellow { color: #ffeb3b; text-shadow: 0 0 8px #ffeb3b; }
+        .star-blue { color: #00e5ff; text-shadow: 0 0 8px #00e5ff; }
+
+        .arcade-title {
+            color: #ffeb3b;
+            text-shadow: 2px 2px 0px #b71c1c;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        /* MARCADORES HUD */
+        .hud-bar {
+            display: flex;
+            justify-content: space-between;
+            background-color: #000;
+            padding: 12px;
+            border: 2px solid #333;
+            margin-bottom: 20px;
+            font-size: 0.65rem;
+            line-height: 1.4;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .hud-item span {
+            color: #fff;
+        }
+
+        /* PANTALLA DE PREGUNTAS */
+        .quiz-screen {
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .question-text {
+            font-size: 0.8rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            color: #ffffff;
+            text-shadow: 0 0 5px rgba(255,255,255,0.3);
+        }
+
+        /* BOTONES DE OPCIONES */
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option-btn {
+            background-color: #000;
+            border: 2px solid #00ff66;
+            color: #00ff66;
+            padding: 15px 12px;
+            font-size: 0.7rem;
+            line-height: 1.5;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .option-btn:hover {
+            background-color: #00ff66;
+            color: #000;
+            box-shadow: 0 0 15px #00ff66;
+        }
+
+        /* POPUPS Y ESTADOS */
+        .secret-popup {
+            background-color: #000;
+            border: 4px solid #00e5ff;
+            color: #00e5ff;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+            font-size: 0.65rem;
+            line-height: 1.6;
+        }
+
+        .blink { animation: blinker 1.5s linear infinite; }
+
+        .screen-state { text-align: center; padding: 20px 10px; line-height: 1.8; }
+
+        .start-btn {
+            background-color: #ffeb3b;
+            color: #000;
+            border: 4px solid #b71c1c;
+            padding: 15px 30px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 30px;
+            text-transform: uppercase;
+        }
+
+        .start-btn:hover { background-color: #fff; box-shadow: 0 0 20px #ffeb3b; }
+
+        @keyframes blinker { 50% { opacity: 0; } }
+        @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.2); } }
+
+        .back-link {
+            margin-top: 25px;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.55rem;
+            text-align: center;
+        }
+        .back-link:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+    <div class="arcade-container">
+        
+        <header class="arcade-header">
+            <div class="logo-area">
+                <img src="logo.png" alt="Logo" class="pixel-logo">
+                <div id="star-badge-zone" class="star-badge-container"></div>
+            </div>
+            <div class="arcade-title">TRUJILLO TRIVIA v1.0</div>
+        </header>
+
+        <div id="game-wrapper">
+            <!-- Controlado por JS -->
+        </div>
+
+        <div id="secret-message-box" class="secret-popup">
+            <h3 class="blink">¡LOGRO DESBLOQUEADO!</h3>
+            <p id="secret-text-content" style="margin-top: 10px; color: #fff;"></p>
+        </div>
+
+    </div>
+
+    <a href="index.html" class="back-link">INSERT COIN - VOLVER AL PORTAL INSTITUCIONAL</a>
+
+    <script>
+        // EL BANCO COMPLETO DE 100 PREGUNTAS
+        const bancoPreguntas = [
+            // 1-10: Institucionales y Epónimo
+            { q: "¿En qué año se mudó el liceo a su sede en la Urb. La Vega?", a: ["1976", "1985", "1992"], c: 0 },
+            { q: "¿Qué documento se compra en el liceo para la inscripción?", a: ["Sobre de manila", "Plantilla de inscripción", "Constancia"], c: 1 },
+            { q: "¿De qué color es la franela en las fotos tipo carnet para 1er año?", a: ["Blanca", "Azul", "Beige"], c: 1 },
+            { q: "¿Cuál es el título oficial con el que egresan los estudiantes?", a: ["Bachiller en Ciencias", "Bachiller en Media General", "Técnico Medio"], c: 1 },
+            { q: "Para inscripciones post-primer año de otra institución se requiere cédula e...", a: ["Historial de años pasados", "Carta de conducta", "Partida original"], c: 0 },
+            { q: "¿Cómo es el campo de cédula para los estudiantes regulares?", a: ["Obligatorio", "No se requiere", "Cédula de Identidad (Opcional)"], c: 2 },
+            { q: "¿Quién debe acompañar legalmente al alumno en el acto presencial?", a: ["Su representante legal", "Cualquier familiar", "El estudiante solo"], c: 0 },
+            { q: "¿Cómo deben asistir vestidos el estudiante y representante a inscribirse?", a: ["Ropa deportiva", "Vestidos formalmente", "Uniforme diario"], c: 1 },
+            { q: "Don Pedro José Carrillo Márquez fue un médico nacido en el estado...", a: ["Mérida", "Zulia", "Trujillo"], c: 2 },
+            { q: "¿Cuál es el monumento más alto de Trujillo y de Venezuela?", a: ["Monumento a la Virgen de la Paz", "Monumento al Armisticio", "Santo Domingo"], c: 0 },
+
+            // 11-30: Cultura y Geografía (Andes/Venezuela)
+            { q: "¿Cuál es el árbol nacional de Venezuela?", a: ["El Araguaney", "El Samán", "El Bucare"], c: 0 },
+            { q: "¿Qué ave nacional representa la fauna de nuestro país?", a: ["El Cardenal", "El Turpial", "El Guacamayo"], c: 1 },
+            { q: "¿Cuál es la flor nacional de Venezuela?", a: ["La Orquídea", "La Cayena", "El Girasol"], c: 0 },
+            { q: "¿En qué población trujillana se celebra activamente la Danza de los Pastores de San Miguel?", a: ["Boconó", "San Lázaro", "Carache"], c: 0 },
+            { q: "¿Qué importante tratado histórico de 1820 se firmó en el estado Trujillo?", a: ["Tratado de Coche", "Tratado de Armisticio y Regularización de la Guerra", "Acuerdo de París"], c: 1 },
+            { q: "¿Cuál es el baile tradicional y folclórico típico del estado Trujillo?", a: ["El Tamunangue", "La Paradura del Niño y Baile de San Benito", "El Joropo Central"], c: 1 },
+            { q: "¿Cuál es el pico más alto ubicado dentro del territorio de Venezuela?", a: ["Pico Bolívar", "Pico Humboldt", "Pico Naiguatá"], c: 0 },
+            { q: "¿Qué río es el más largo y caudaloso de toda Venezuela?", a: ["Río Caroní", "Río Orinoco", "Río Apure"], c: 1 },
+            { q: "¿Cuál es la capital del estado Trujillo?", a: ["Valera", "Boconó", "Trujillo"], c: 2 },
+            { q: "¿Qué ciudad trujillana es conocida cariñosamente como 'La ciudad de las colinas'?", a: ["Valera", "Carache", "Escuque"], c: 0 },
+            { q: "¿Cuál es el salto de agua más alto del mundo, ubicado en el estado Bolívar?", a: ["Salto Kukenán", "Salto Ángel", "Salto Aponguao"], c: 1 },
+            { q: "¿Qué héroe trujillano firmó junto a Bolívar la Proclama de Guerra a Muerte?", a: ["Antonio Nicolás Briceño", "José Manuel Briceño", "Cruz Carrillo"], c: 0 },
+            { q: "¿Qué hermoso parque nacional trujillano comparte linderos con Mérida?", a: ["Guaramacal", "Sierra Nevada", "Dinira"], c: 1 },
+            { q: "¿Cuál es la comida típica a base de maíz rellena más famosa de Venezuela?", a: ["La Empanada", "La Arepa", "La Cachapa"], c: 1 },
+            { q: "¿Qué dulce andino tradicional trujillano se prepara a base de leche y azúcar?", a: ["El Dulce de lechoza", "Los Brillantes", "El Aliado y los dulces de colación"], c: 2 },
+            { q: "¿Qué cordillera atraviesa y define el relieve del estado Trujillo?", a: ["Cordillera de la Costa", "Cordillera de los Andes", "Macizo Guayanés"], c: 1 },
+            { q: "¿Cuál es el estado más grande en superficie de toda Venezuela?", a: ["Amazonas", "Bolívar", "Apure"], c: 1 },
+            { q: "¿Cuál de estos estados venezolanos no posee salida directa al mar Caribe?", a: ["Trujillo", "Carabobo", "Sucre"], c: 0 },
+            { q: "¿En qué mes se celebra tradicionalmente el día de la Juventud en Venezuela?", a: ["Febrero", "Marzo", "Julio"], c: 0 },
+            { q: "¿Quién compuso la música de nuestro Himno Nacional, el 'Gloria al Bravo Pueblo'?", a: ["Vicente Salias", "Juan José Landaeta", "Rafael Núñez"], c: 1 },
+
+            // 31-40: Historia de Venezuela
+            { q: "¿Quién es conocido como el Libertador de Venezuela?", a: ["José Antonio Páez", "Simón Bolívar", "Francisco de Miranda"], c: 1 },
+            { q: "¿En qué fecha se celebra la firma del Acta de la Independencia de Venezuela?", a: ["19 de Abril", "5 de Julio", "24 de Junio"], c: 1 },
+            { q: "¿Qué batalla decisiva de 1821 consolidó la independencia de Venezuela?", a: ["Batalla de Carabobo", "Batalla de Boyacá", "Batalla de Ayacucho"], c: 0 },
+            { q: "¿Cuál fue el primer presidente de Venezuela?", a: ["Simón Bolívar", "José Antonio Páez", "Cristóbal Mendoza"], c: 2 },
+            { q: "¿Qué nombre recibió la unión de Venezuela, Colombia y Ecuador tras la independencia?", a: ["La Gran Colombia", "Provincias Unidas", "República de Venezuela"], c: 0 },
+            { q: "¿Qué importante científico venezolano desarrolló la vacuna contra la lepra?", a: ["Humberto Fernández Morán", "Jacinto Convit", "José Gregorio Hernández"], c: 1 },
+            { q: "¿Cuál es el billete de mayor denominación actualmente en el cono monetario venezolano (Bolívar Digital)?", a: ["10 Bs.", "50 Bs.", "100 Bs."], c: 2 },
+            { q: "¿En qué estado se encuentra la Cueva del Guácharo?", a: ["Monagas", "Sucre", "Bolívar"], c: 0 },
+            { q: "¿Cuál es el lago más grande de Sudamérica, ubicado en Venezuela?", a: ["Lago de Valencia", "Lago de Maracaibo", "Lago de Titicaca"], c: 1 },
+            { q: "¿Qué ciudad es conocida como la capital musical de Venezuela?", a: ["Caracas", "Barquisimeto", "Maracaibo"], c: 1 },
+
+            // 41-50: Geografía de Venezuela
+            { q: "¿Qué estado venezolano es conocido como la tierra del sol amada?", a: ["Zulia", "Falcón", "Lara"], c: 0 },
+            { q: "¿Cuál es la capital del estado Lara?", a: ["Maracaibo", "Barquisimeto", "Valencia"], c: 1 },
+            { q: "¿Qué archipiélago venezolano es famoso por sus playas cristalinas?", a: ["Los Roques", "Mochima", "Morrocoy"], c: 0 },
+            { q: "¿Cuál es el punto más septentrional (al norte) de la Venezuela continental?", a: ["Cabo San Román", "Punta Gallinas", "Cabo Codera"], c: 0 },
+            { q: "¿Qué río separa a Venezuela de Colombia en parte de su frontera?", a: ["Río Caroní", "Río Orinoco", "Río Arauca"], c: 2 },
+            { q: "¿Cuál es el estado más densamente poblado de Venezuela?", a: ["Zulia", "Miranda", "Nueva Esparta"], c: 1 },
+            { q: "¿Qué estado venezolano es famoso por sus tepuyes y la Gran Sabana?", a: ["Bolívar", "Amazonas", "Apure"], c: 0 },
+            { q: "¿Cuál es el segundo estado más grande de Venezuela en superficie?", a: ["Bolívar", "Amazonas", "Apure"], c: 1 },
+            { q: "¿Qué isla venezolana es conocida como la Perla del Caribe?", a: ["Isla de Coche", "Isla de Margarita", "Isla de Cubagua"], c: 1 },
+            { q: "¿Cuál es el clima predominante en la mayor parte del territorio venezolano?", a: ["Tropical llanero", "Tropical de selva", "Tropical monzónico"], c: 0 },
+
+            // 51-60: Literatura Venezolana
+            { q: "¿Quién escribió la célebre novela 'Doña Bárbara'?", a: ["Rómulo Gallegos", "Arturo Uslar Pietri", "Andrés Eloy Blanco"], c: 0 },
+            { q: "¿Cuál es el poema más famoso de Andrés Eloy Blanco?", a: ["Píntame angelitos negros", "La renuncia", "Canto a España"], c: 0 },
+            { q: "¿Qué escritor venezolano es conocido como el 'maestro de las letras'?", a: ["Arturo Uslar Pietri", "Andrés Bello", "Simón Rodríguez"], c: 1 },
+            { q: "¿Cuál es la obra más importante de Teresa de la Parra?", a: ["Ifigenia", "Memorias de Mamá Blanca", "Las memorias de Mamá Blanca"], c: 2 },
+            { q: "¿Qué poeta venezolano es conocido como el 'poeta del pueblo'?", a: ["Andrés Eloy Blanco", "Aquiles Nazoa", "Andrés Bello"], c: 1 },
+            { q: "¿Cuál es el personaje más famoso creado por Aquiles Nazoa?", a: ["El Cojo", "El Ratón Crispín", "El Diablo"], c: 1 },
+            { q: "¿Qué escritor venezolano ganó el Premio Rómulo Gallegos en 1967?", a: ["Mario Vargas Llosa", "Gabriel García Márquez", "Carlos Fuentes"], c: 1 }, // Curiosidad: el premio es venezolano pero lo ganó un colombiano
+            { q: "¿Cuál es la novela histórica más famosa de Arturo Uslar Pietri?", a: ["Las lanzas coloradas", "El camino de El Dorado", "Oficio de difuntos"], c: 0 },
+            { q: "¿Qué poeta venezolano escribió 'Canto general'?", a: ["Andrés Eloy Blanco", "Pablo Neruda", "Andrés Bello"], c: 1 }, // Curiosidad: es chileno, pero la pregunta es sobre literatura.
+            { q: "¿Quién es considerado el máximo representante del modernismo literario en Venezuela?", a: ["Rufino Blanco Fombona", "Manuel Díaz Rodríguez", "Pedro Emilio Coll"], c: 1 },
+
+            // 61-70: Ciencia y Tecnología en Venezuela
+            { q: "¿Cuál fue el primer satélite venezolano lanzado al espacio?", a: ["Satélite Simón Bolívar", "Satélite Miranda", "Satélite Sucre"], c: 0 },
+            { q: "¿Qué científico venezolano inventó el bisturí de diamante?", a: ["Humberto Fernández Morán", "Jacinto Convit", "José Gregorio Hernández"], c: 0 },
+            { q: "¿En qué año se fundó la Universidad Central de Venezuela?", a: ["1721", "1821", "1921"], c: 0 },
+            { q: "¿Qué instituto venezolano se dedica a la investigación científica y tecnológica?", a: ["IVIC", "CONICIT", "FONACIT"], c: 0 },
+            { q: "¿Cuál es el principal recurso natural de exportación de Venezuela?", a: ["Oro", "Hierro", "Petróleo"], c: 2 },
+            { q: "¿Qué represa hidroeléctrica es una de las más grandes del mundo, ubicada en el río Caroní?", a: ["Represa del Guri", "Represa de Macagua", "Represa de Caruachi"], c: 0 },
+            { q: "¿Cuál fue la primera ciudad venezolana en contar con un sistema de metro?", a: ["Maracaibo", "Valencia", "Caracas"], c: 2 },
+            { q: "¿Qué científico venezolano realizó importantes estudios sobre la enfermedad de Chagas?", a: ["Rafael Rangel", "Jacinto Convit", "José Gregorio Hernández"], c: 0 },
+            { q: "¿En qué año comenzó la explotación petrolera a gran escala en Venezuela?", a: ["1914", "1922", "1930"], c: 1 },
+            { q: "¿Qué importante centro de investigación tecnológica se encuentra en Mérida?", a: ["CIDA", "IDEA", "INIA"], c: 0 },
+
+            // 71-80: Deportes en Venezuela
+            { q: "¿Cuál es el deporte nacional de Venezuela?", a: ["Béisbol", "Fútbol", "Baloncesto"], c: 0 },
+            { q: "¿Qué apodo recibe la selección nacional de fútbol de Venezuela?", a: ["La Vinotinto", "La Aurinegra", "La Tricolor"], c: 0 },
+            { q: "¿Quién fue el primer venezolano en ganar un Guante de Oro en las Grandes Ligas?", a: ["Luis Aparicio", "David Concepción", "Omar Vizquel"], c: 0 },
+            { q: "¿Qué ciclista venezolano es conocido como el 'Caimán de San Cristóbal'?", a: ["José Rujano", "Leonardo Sierra", "Santos Bermúdez"], c: 2 },
+            { q: "¿Qué atleta venezolana posee el récord mundial en triple salto bajo techo?", a: ["Yulimar Rojas", "Deyna Castellanos", "Gleymar Flores"], c: 0 },
+            { q: "¿Cuál es el equipo de béisbol con más campeonatos en la LVBP?", a: ["Leones del Caracas", "Navegantes del Magallanes", "Tigres de Aragua"], c: 0 },
+            { q: "¿Qué boxeador venezolano fue conocido como el 'Inca'?", a: ["Edwin Valero", "Jorge Linares", "Leo Gámez"], c: 0 },
+            { q: "¿Cuál fue el primer venezolano en ganar una medalla de oro olímpica?", a: ["Morochito Rodríguez", "Rubén Limardo", "Arlindo Gouveia"], c: 0 },
+            { q: "¿Qué piloto venezolano ha competido en la Fórmula 1?", a: ["Pastor Maldonado", "Johnny Cecotto", "Rodolfo González"], c: 0 },
+            { q: "¿Cuál es el estadio de fútbol más grande de Venezuela?", a: ["Estadio Monumental de Maturín", "Estadio Metropolitano de Mérida", "Estadio José Pachencho Romero"], c: 0 },
+
+            // 81-90: Artes y Música en Venezuela
+            { q: "¿Qué artista venezolano es conocido por sus obras cinéticas y de op-art?", a: ["Jesús Soto", "Carlos Cruz-Diez", "Alejandro Otero"], c: 1 },
+            { q: "¿Cuál es el nombre del sistema nacional de orquestas infantiles y juveniles de Venezuela?", a: ["El Sistema", "La Orquesta", "La Sinfónica"], c: 0 },
+            { q: "¿Qué director de orquesta venezolano es mundialmente famoso, director de la Filarmónica de Los Ángeles?", a: ["Gustavo Dudamel", "José Antonio Abreu", "Simón Bolívar"], c: 0 },
+            { q: "¿Qué estilo musical tradicional venezolano se caracteriza por el uso del arpa, el cuatro y las maracas?", a: ["Joropo", "Gaita", "Tambor"], c: 0 },
+            { q: "¿Cuál es el teatro más importante de Venezuela, ubicado en Caracas?", a: ["Teatro Teresa Carreño", "Teatro Municipal", "Teatro Nacional"], c: 0 },
+            { q: "¿Qué escultor venezolano es famoso por sus esculturas gigantes de acero?", a: ["Jesús Soto", "Alejandro Otero", "Cruz-Diez"], c: 1 },
+            { q: "¿Cuál es el género musical típico del estado Zulia, popular en Navidad?", a: ["Joropo", "Gaita zuliana", "Tambor"], c: 1 },
+            { q: "¿Qué pintor venezolano es conocido como el 'maestro de la luz'?", a: ["Armando Reverón", "Tito Salas", "Arturo Michelena"], c: 0 },
+            { q: "¿Qué himno del estado Trujillo menciona en sus letras al río Momoy y las cimas del Guri?", a: ["Himno del Estado Trujillo", "Himno de Valera", "Himno del municipio"], c: 0 },
+            { q: "¿Cuál es el instrumento principal que define la melodía en el Joropo llanero?", a: ["El Cuatro", "El Arpa", "La Guitarra"], c: 1 },
+
+            // 91-99: Datos Generales y Curiosidades de Venezuela
+            { q: "¿Cuál es la capital de Venezuela?", a: ["Caracas", "Maracaibo", "Valencia"], c: 0 },
+            { q: "¿En qué continente se encuentra Venezuela?", a: ["Europa", "Sudamérica", "África"], c: 1 },
+            { q: "¿Cuál es el idioma oficial de Venezuela?", a: ["Español", "Inglés", "Francés"], c: 0 },
+            { q: "¿Cuál es la moneda oficial de Venezuela?", a: ["Dólar", "Bolívar", "Peso"], c: 1 },
+            { q: "¿Qué país limita al este con Venezuela?", a: ["Colombia", "Guyana", "Brasil"], c: 1 },
+            { q: "¿Cuál es la cordillera más larga del mundo, que pasa por Venezuela?", a: ["Los Andes", "Los Alpes", "El Himalaya"], c: 0 },
+            { q: "¿Cuál es el océano que baña las costas del norte de Venezuela?", a: ["Océano Pacífico", "Océano Atlántico (Mar Caribe)", "Océano Índico"], c: 1 },
+            { q: "¿En qué país nació el Libertador Simón Bolívar?", a: ["Venezuela", "Colombia", "Ecuador"], c: 0 },
+            { q: "¿Qué color no está presente en la bandera de Venezuela?", a: ["Amarillo", "Verde", "Rojo"], c: 1 },
+
+            // PREGUNTA 100 EXPLICITA EXIGIDA
+            { 
+                q: "¿Cuál ha sido la estudiante más influyente en la institución?", 
+                a: ["María Briceño", "Anihangela", "Gabriela Carrillo"], 
+                c: 1 
+            }
+        ];
+
+        const mensajesSecretos = {
+            10: "¡Excelente inicio! Conoces los procesos de Control de Estudios.",
+            20: "¡Racha de 20! El espíritu de Don Pedro Carrillo te acompaña.",
+            30: "¡30 Puntos! Sabes perfectamente la geografía de los Andes.",
+            40: "¡Racha de 40! Tus expedientes digitales están al día.",
+            50: "¡MITAD DEL CAMINO! Sistema optimizado y sin fallas.",
+            60: "¡60 Puntos! Los profesores de ciencia están orgullosos.",
+            70: "¡Imparable! Conoces cada rincón histórico trujillano.",
+            80: "¡Nivel de Honor! Tu promedio académico es excelente.",
+            90: "¡CASI PERFECTO! Te aproximas a la prueba legendaria final.",
+            100: "¡CONQUISTA TOTAL! Eres la leyenda viviente del plantel."
+        };
+
+        let preguntaActual = 0;
+        let correctasConsecutivas = 0;
+        let totalCorrectas = 0;
+        let estrellasAcumuladas = 0;
+        let juegoTerminado = false;
+
+        const contenedorPrincipal = document.getElementById('game-wrapper');
+        const zonaEstrellas = document.getElementById('star-badge-zone');
+        const cajaMensajeSecreto = document.getElementById('secret-message-box');
+        const contenidoTextoSecreto = document.getElementById('secret-text-content');
+
+        function mostrarPantallaInicio() {
+            contenedorPrincipal.innerHTML = `
+                <div class="screen-state">
+                    <h2 style="color: #ffeb3b; margin-bottom: 20px; font-size: 0.85rem;">¿ERES UN VERDADERO ESTUDIANTE?</h2>
+                    <p style="font-size: 0.6rem; color: #fff; line-height: 1.8;">Supera las 100 preguntas sin fallar. Demuestra tu conocimiento del plantel y la cultura general.</p>
+                    <button class="start-btn" onclick="iniciarTrivia()">START GAME</button>
+                </div>
+            `;
+        }
+
+        function actualizarMarcadorEstrellas() {
+            zonaEstrellas.innerHTML = '';
+            if (estrellasAcumuladas === 10) {
+                zonaEstrellas.innerHTML = `<span class="star-icon star-blue">★</span> <span style="color: #00e5ff;">10</span>`;
+            } else if (estrellasAcumuladas > 0) {
+                zonaEstrellas.innerHTML = `<span class="star-icon star-yellow">★</span> <span style="color: #ffeb3b;">x${estrellasAcumuladas}</span>`;
+            }
+        }
+
+        function iniciarTrivia() {
+            preguntaActual = 0;
+            correctasConsecutivas = 0;
+            totalCorrectas = 0;
+            estrellasAcumuladas = 0;
+            juegoTerminado = false;
+            cajaMensajeSecreto.style.display = "none";
+            actualizarMarcadorEstrellas();
+            cargarPregunta();
+        }
+
+        function cargarPregunta() {
+            if (correctasConsecutivas === 100) {
+                finalizarJuego(true);
+                return;
+            }
+
+            const datosPregunta = bancoPreguntas[preguntaActual];
+            
+            contenedorPrincipal.innerHTML = `
+                <div class="hud-bar">
+                    <div class="hud-item">Q: <span>${preguntaActual + 1}/100</span></div>
+                    <div class="hud-item">STREAK: <span>${correctasConsecutivas}</span></div>
+                    <div class="hud-item">STARS: <span>${estrellasAcumuladas}/10</span></div>
+                </div>
+                <div class="quiz-screen">
+                    <p class="question-text">&gt; ${datosPregunta.q}</p>
+                    <div class="options-grid">
+                        <button class="option-btn" onclick="verificarRespuesta(0)">A) ${datosPregunta.a[0]}</button>
+                        <button class="option-btn" onclick="verificarRespuesta(1)">B) ${datosPregunta.a[1]}</button>
+                        <button class="option-btn" onclick="verificarRespuesta(2)">C) ${datosPregunta.a[2]}</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function verificarRespuesta(opcionSeleccionada) {
+            const datosPregunta = bancoPreguntas[preguntaActual];
+            
+            if (opcionSeleccionada === datosPregunta.c) {
+                correctasConsecutivas++;
+                totalCorrectas++;
+                
+                if (correctasConsecutivas % 10 === 0 && correctasConsecutivas > 0) {
+                    estrellasAcumuladas = correctasConsecutivas / 10;
+                    actualizarMarcadorEstrellas();
+                    
+                    if (mensajesSecretos[correctasConsecutivas]) {
+                        contenidoTextoSecreto.innerText = mensajesSecretos[correctasConsecutivas];
+                        cajaMensajeSecreto.style.display = "block";
+                        setTimeout(() => {
+                            if (!juegoTerminado) cajaMensajeSecreto.style.display = "none";
+                        }, 4000);
+                    }
+                }
+                
+                preguntaActual++;
+                setTimeout(cargarPregunta, 200);
+            } else {
+                finalizarJuego(false);
+            }
+        }
+
+        function finalizarJuego(victoria) {
+            juegoTerminado = true;
+            cajaMensajeSecreto.style.display = "none";
+
+            if (victoria) {
+                estrellasAcumuladas = 10;
+                actualizarMarcadorEstrellas();
+                contenedorPrincipal.innerHTML = `
+                    <div class="screen-state" style="color: #00e5ff;">
+                        <h2 class="blink" style="font-size: 1rem; margin-bottom: 20px;">¡VICTORIA ABSOLUTA!</h2>
+                        <p style="font-size: 0.55rem; color: #fff; line-height: 2;">Has estado genial, ¡Anihangela estaría orgullosa de ti, ahora está estudiando en la universidad, dadle fuerzas! Saludos desde aqui Anihangela ¡Suerte!</p>
+                        <div style="font-size: 3rem; margin: 20px 0;">★</div>
+                        <button class="start-btn" onclick="iniciarTrivia()">PLAY AGAIN</button>
+                    </div>
+                `;
+            } else {
+                contenedorPrincipal.innerHTML = `
+                    <div class="screen-state" style="color: #d32f2f;">
+                        <h2 class="blink" style="font-size: 1.1rem; margin-bottom: 20px;">GAME OVER</h2>
+                        <p style="font-size: 0.6rem; color: #fff; line-height: 1.8;">El registro de Control de Estudios rechazó la postulación por un fallo en los datos.</p>
+                        <p style="margin-top: 15px; color: #ffeb3b; font-size: 0.6rem;">RACHA MAXIMA: ${correctasConsecutivas}</p>
+                        <button class="start-btn" onclick="iniciarTrivia()">RETRY</button>
+                    </div>
+                `;
+                estrellasAcumuladas = 0;
+                actualizarMarcadorEstrellas();
+            }
+        }
+
+        mostrarPantallaInicio();
+    </script>
+</body>
+</html>
